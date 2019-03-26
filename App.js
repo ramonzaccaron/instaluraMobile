@@ -6,8 +6,9 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Image, Dimensions, FlatList } from 'react-native';
+import React, { Component } from 'react';
+import { Platform, StyleSheet, Text, View, Image, Dimensions, FlatList } from 'react-native';
+import Post from './src/components/Post';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -23,23 +24,39 @@ export default class App extends Component<Props> {
   render() {
 
     const fotos = [
-      {id: 1, usuario: 'ramon'},
-      {id: 2, usuario: 'felipe'},
-      {id: 3, usuario: 'dienisson'}
+      { id: 1, usuario: 'ramon' },
+      { id: 2, usuario: 'felipe' },
+      { id: 3, usuario: 'dienisson' }
     ];
 
     return (
-      <FlatList style={{marginTop: 20}}
-          keyExtractor={item => String(item.id)}
-          data={fotos}
-          renderItem={ ({item}) =>
-              <View>
-                  <Text>{item.usuario}</Text>
-                  <Image source={require('./resources/img/react-native.png')}
-                      style={{width: width, height: width}} />        
-              </View>
-          }
+      <FlatList style={styles.container}
+        data={fotos}
+        keyExtractor={item => String(item.id)}
+        renderItem={({ item }) =>
+          <Post foto={item} />
+        }
       />
-  );
+    );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 20
+  },
+  cabecalho: {
+    margin: 10,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  fotoDePerfil: {
+    marginRight: 10,
+    borderRadius: 20,
+    width: 40, height: 40
+  },
+  foto: {
+    width: width,
+    height: width
+  }
+})
